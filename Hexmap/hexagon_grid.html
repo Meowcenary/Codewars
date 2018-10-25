@@ -4,10 +4,17 @@
     <script src="hexagon.js"></script>
 </head>
 <body>
-	<canvas id="HexCanvas" width="2500" height="2200"></canvas>
-    <script>
-        var hexagonGrid = new HexagonGrid("HexCanvas", 50);
-        hexagonGrid.drawHexGrid(24, 30, 50, 50, false);
-    </script>
-
+    <img id="chit" width="50" height="50" src="derp_chit.png" style="visibility: hidden">
+    <canvas id="HexCanvas" width="3000" height="2800"></canvas>
 </body>
+<footer>
+    <script>
+	var chitImage = new Image();
+	chitImage.src = "derp_chit.png";
+	chitImage.onload = function() {
+            console.log('gets here?');
+            var hexagonGrid = new HexagonGrid("HexCanvas", 60);
+            hexagonGrid.drawHexGrid(24, 30, 50, 50, true);
+	};
+    </script>
+</footer>

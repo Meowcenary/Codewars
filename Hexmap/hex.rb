@@ -6,7 +6,7 @@ class Hex
     @column = column
     @row = row
     @terrain = terrain
-    @unit = nil
+    @unit = unit
   end
 
   def coordindate

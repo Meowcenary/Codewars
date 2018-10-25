@@ -49,11 +49,28 @@ HexagonGrid.prototype.drawHexGrid = function (rows, cols, originX, originY, isDe
     }
 };
 
+HexagonGrid.prototype.drawZoc = function (chitColumn, chitRow, color) {
+    // need to account for borders somehow...
+    this.drawHexAtColRow(chitColumn, chitRow+1, color)
+    this.drawHexAtColRow(chitColumn, chitRow-1, color)
+
+    this.drawHexAtColRow(chitColumn+1, chitRow, color)
+    this.drawHexAtColRow(chitColumn-1, chitRow, color)
+
+    if (chitColumn%2 === 0) {
+        this.drawHexAtColRow(chitColumn+1, chitRow-1, color)
+        this.drawHexAtColRow(chitColumn-1, chitRow-1, color)
+    } else {
+        this.drawHexAtColRow(chitColumn+1, chitRow+1, color)
+        this.drawHexAtColRow(chitColumn-1, chitRow+1, color)
+    }
+}
+
 HexagonGrid.prototype.drawHexAtColRow = function(column, row, color) {
     var drawy = column % 2 == 0 ? (row * this.height) + this.canvasOriginY : (row * this.height) + this.canvasOriginY + (this.height / 2);
     var drawx = (column * this.side) + this.canvasOriginX;
 
-    this.drawHex(drawx, drawy, color, "", false);
+    this.drawHex(drawx, drawy, color, "", true);
 };
 
 HexagonGrid.prototype.drawHex = function(x0, y0, fillColor, debugText, clicked) {
@@ -78,6 +95,8 @@ HexagonGrid.prototype.drawHex = function(x0, y0, fillColor, debugText, clicked) 
         this.context.font = "8px";
         this.context.fillStyle = "#000";
         this.context.fillText(debugText, x0 + (this.width / 2) - (this.width/4), y0 + (this.height - 5));
+        var img = document.getElementById("chit");
+        this.context.drawImage(img, x0 + (this.width / 2) - (this.width/5), y0 + (this.height/4));
     }
 };
 
@@ -191,15 +210,17 @@ HexagonGrid.prototype.clickEvent = function (e) {
     var localY = mouseY - this.canvasOriginY;
 
     var tile = this.getSelectedTile(localX, localY);
-    var tileString = tile.row + ' ' + tile.column;
+    var tileString = tile.column + ',' + tile.row ;
     var drawy = tile.column % 2 == 0 ? (tile.row * this.height) + this.canvasOriginY + 6 : (tile.row * this.height) + this.canvasOriginY + 6 + (this.height / 2);
     var drawx = (tile.column * this.side) + this.canvasOriginX;
+
+    this.drawZoc(tile.column, tile.row, "rgba(110,110,70,0.3)")
 
     if (tile.column >= 0 && tile.row >= 0 && this.visitedHexes.indexOf(tileString) === -1) {
         this.drawHex(drawx, drawy - 6, "rgba(110,110,70,0.3)", "", true);
         this.visitedHexes.push(tileString);
     } else if (this.visitedHexes.indexOf(tileString) >= 0) {
-        this.drawHex(drawx, drawy - 6, "#ddd", "", true);
+        this.drawHex(drawx, drawy - 6, "#ddd", tileString, true);
         this.visitedHexes.splice(this.visitedHexes.indexOf(tileString), 1)
     }
 };

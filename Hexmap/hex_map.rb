@@ -47,5 +47,10 @@ class HexGrid
     # bottom left
     adjacent_hexes << @hexes[hex.row + 1][hex.column]
   end
+
+  def zone_of_control(hex)
+    if hex.unit?
+    end
+  end
 end
 

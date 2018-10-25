@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="hexgridwidget-master/hexgridwidget.js" ></script>
+        <style type="text/css">
+            svg {}
+            .hexfield {
+              fill: transparent;
+              stroke: yellowgreen;
+              stroke-width: 1;
+            }
+            .hexfield:focus {
+              outline:none;
+            }
+            .hexfield:hover {
+              fill: green;
+            }
+            .hexfield:active {
+              fill: red;
+              outline: none;
+            }
+            .hexfield.clicked{
+              fill: black;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-md-2">
+                <form class="form-horizontal" onsubmit="return false;">
+                    <div style="border: 1px solid black">
+                        <div class="control-group">
+                            <label class="control-label">Rows</label>
+                            <div class="controls">
+                                <input class="input" id="rows" placeholder="Rows" value="5"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Columns</label>
+                            <div class="controls">
+                                <input class="input" id="columns" placeholder="Columns" value="10"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Radius</label>
+                            <div class="controls">
+                                <input	class="input" id="radius" placeholder="Radius" value="20"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <button class="btn" id="rebuild">Rebuild</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6" style="text-align:center">
+                <div id="container">
+                </div>
+                <h2>
+                    <small id="logger">click around the grid</small>
+                </h2>
+            </div>
+        <div class="span6">
+
+        </div>
+    </body>
+    <footer>
+        <script>
+            $(document).ready(function() {
+                <!-- main initialisation -->
+                var rebuild = function () {
+                  debugger
+                  var
+                    radius = parseInt($('#radius').val()),
+                    columns = parseInt($('#columns').val()),
+                    rows = parseInt($('#rows').val()),
+                    cssClass = 'hexfield';
+
+                  $('#container').empty().hexGridWidget(radius, columns, rows, cssClass).on('hexclick', function (e) {
+                     $('#logger').text('clicked [' + e.column + ',' + e.row + '] hex with center at [' + e.center.x + ',' + e.center.y + '] px');
+                  });
+                  $('#container .hexfield').click(function () {
+                    this.classList.toggle('clicked');
+                  });
+                };
+                $('#rebuild').click(rebuild);
+                rebuild();
+            })
+        </script>
+    </footer>
+</html>
