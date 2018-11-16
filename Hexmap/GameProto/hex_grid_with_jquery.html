@@ -5,28 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="hexgridwidget-master/hexgridwidget.js" ></script>
-        <style type="text/css">
-            svg {}
-            .hexfield {
-              fill: transparent;
-              stroke: yellowgreen;
-              stroke-width: 1;
-            }
-            .hexfield:focus {
-              outline:none;
-            }
-            .hexfield:hover {
-              fill: green;
-            }
-            .hexfield:active {
-              fill: red;
-              outline: none;
-            }
-            .hexfield.clicked{
-              fill: red;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="initial.css">
     </head>
     <body>
         <div class="row">
@@ -73,39 +52,6 @@
         </div>
     </body>
     <footer>
-        <script>
-            $(document).ready(function() {
-                <!-- main initialisation -->
-                var rebuild = function () {
-                  <!-- mass assign vars? -->
-                  var
-                    radius = parseInt($('#radius').val()),
-                    columns = parseInt($('#columns').val()),
-                    rows = parseInt($('#rows').val()),
-                    cssClass = 'hexfield';
-
-                    <!-- clear the container element of all hexagaons, this can be chained with the below line, -->
-                    <!-- but I thought it was more clear here -->
-                    $('#container').empty();
-
-                    <!-- hexGridWidget is a function being called on '#container' that creates the hexagon grid and assigns event handler for 'hexclick' -->
-                    $('#container').hexGridWidget(radius, columns, rows, cssClass).on('hexclick', function (e) {
-
-                    <!-- update the text of logger element -->
-                    $('#logger').text('clicked [' + e.column + ',' + e.row + '] hex with center at [' + e.center.x + ',' + e.center.y + '] px');
-                  });
-
-                  <!-- seemingly take advantage of event bubble up to handle all clicks? -->
-                  $('#container .hexfield').click(function () {
-                    debugger
-                    <!-- what is 'this' in this context -->
-                    this.classList.toggle('clicked');
-                  });
-
-                };
-                $('#rebuild').click(rebuild);
-                rebuild();
-            })
-        </script>
+        <script src="hexgridwidget.js" ></script>
     </footer>
 </html>
