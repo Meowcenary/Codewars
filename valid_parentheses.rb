@@ -22,6 +22,7 @@ def valid_parentheses(string)
 
   # the run time is going to scale with the size of the string so it's not that
   # helpful to remove the alphanumeric characters
+  # use #chars instead of #split to grab all the characters
   remove_alphanumeric(string).split('').each do |char|
     # open? / close? are unecessary functions that just clutter things
     if open?(char)
