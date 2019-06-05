@@ -18,7 +18,11 @@ svg {}
   outline: none;
 }
 
-.hexfield.clicked{
+.hexfield.clicked {
+  fill: yellow;
+}
+
+.hexfield.zoc {
   fill: red;
 }
 

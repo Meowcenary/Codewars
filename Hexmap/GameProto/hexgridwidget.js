@@ -49,6 +49,67 @@ $(document).ready(function() {
         });
     };
 
+    var evenColumnZoc = function (selected_row, selected_column) {
+        hex_selector = "#container .hexfield[hex-row='"+ (parseInt(selected_row)) + "'][hex-column='" + (parseInt(selected_column)) + "']"
+        hex = $(hex_selector)[0];
+        hex.classList.toggle('clicked');
+
+        // above hex
+        next_hex_selector = "#container .hexfield[hex-row='"+ (parseInt(selected_row) - 1) + "'][hex-column='" + (parseInt(selected_column)) + "']"
+        next_hex = $(next_hex_selector)[0];
+        next_hex.classList.toggle('zoc');
+        // hex to the right and up
+        next_hex_selector = "#container .hexfield[hex-row='"+ (parseInt(selected_row) - 1) + "'][hex-column='" + (parseInt(selected_column) + 1) + "']"
+        next_hex = $(next_hex_selector)[0];
+        next_hex.classList.toggle('zoc');
+        // // hex to the right and down
+        next_hex_selector = "#container .hexfield[hex-row='"+ (parseInt(selected_row)) + "'][hex-column='" + (parseInt(selected_column) + 1) + "']"
+        next_hex = $(next_hex_selector)[0];
+        next_hex.classList.toggle('zoc');
+        // // hex below
+        next_hex_selector = "#container .hexfield[hex-row='"+ (parseInt(selected_row) + 1) + "'][hex-column='" + (parseInt(selected_column)) + "']"
+        next_hex = $(next_hex_selector)[0];
+        next_hex.classList.toggle('zoc');
+        // // hex to the left and down
+        next_hex_selector = "#container .hexfield[hex-row='"+ (parseInt(selected_row) - 1) + "'][hex-column='" + (parseInt(selected_column) - 1) + "']"
+        next_hex = $(next_hex_selector)[0];
+        next_hex.classList.toggle('zoc');
+        // // hex to the left and down
+        next_hex_selector = "#container .hexfield[hex-row='"+ (parseInt(selected_row)) + "'][hex-column='" + (parseInt(selected_column) - 1) + "']"
+        next_hex = $(next_hex_selector)[0];
+        next_hex.classList.toggle('zoc');
+    }
+
+    var oddColumnZoc = function (selected_row, selected_column) {
+        hex_selector = "#container .hexfield[hex-row='"+ (parseInt(selected_row)) + "'][hex-column='" + (parseInt(selected_column)) + "']"
+        hex = $(hex_selector)[0];
+        hex.classList.toggle('clicked');
+
+        next_hex_selector = "#container .hexfield[hex-row='"+ (parseInt(selected_row) - 1) + "'][hex-column='" + (parseInt(selected_column)) + "']"
+        next_hex = $(next_hex_selector)[0];
+        next_hex.classList.toggle('zoc');
+        // hex to the right and up
+        next_hex_selector = "#container .hexfield[hex-row='"+ (parseInt(selected_row) + 1) + "'][hex-column='" + (parseInt(selected_column) + 1) + "']"
+        next_hex = $(next_hex_selector)[0];
+        next_hex.classList.toggle('zoc');
+        // hex to the right and down
+        next_hex_selector = "#container .hexfield[hex-row='"+ (parseInt(selected_row)) + "'][hex-column='" + (parseInt(selected_column) + 1) + "']"
+        next_hex = $(next_hex_selector)[0];
+        next_hex.classList.toggle('zoc');
+        // hex below
+        next_hex_selector = "#container .hexfield[hex-row='"+ (parseInt(selected_row) + 1) + "'][hex-column='" + (parseInt(selected_column)) + "']"
+        next_hex = $(next_hex_selector)[0];
+        next_hex.classList.toggle('zoc');
+        // hex to the left and down
+        next_hex_selector = "#container .hexfield[hex-row='"+ (parseInt(selected_row) + 1) + "'][hex-column='" + (parseInt(selected_column) - 1) + "']"
+        next_hex = $(next_hex_selector)[0];
+        next_hex.classList.toggle('zoc');
+        // hex to the left and down
+        next_hex_selector = "#container .hexfield[hex-row='"+ (parseInt(selected_row)) + "'][hex-column='" + (parseInt(selected_column) - 1) + "']"
+        next_hex = $(next_hex_selector)[0];
+        next_hex.classList.toggle('zoc');
+    }
+
     var rebuild = function () {
       var
         radius = parseInt($('#radius').val()),
@@ -63,7 +124,15 @@ $(document).ready(function() {
         });
 
       $('#container .hexfield').click(function () {
-        this.classList.toggle('clicked');
+        rebuild();
+        hex = $(this);
+        selected_column = hex.attr('hex-column');
+        selected_row = hex.attr('hex-row');
+        if (selected_column % 2 == 1) {
+          oddColumnZoc(selected_row, selected_column);
+        } else {
+          evenColumnZoc(selected_row, selected_column);
+        }
       });
     };
 
