@@ -12,6 +12,25 @@ def contains_sum_pair? values, target
   false
 end
 
+#  The trick to this being the more efficient solution is the implementation of
+#  #include? on a Set veresus an Array
+#  Array: https://ruby-doc.org/core-2.5.0/Array.html#method-i-include-3F
+#  Set: https://ruby-doc.org/stdlib-2.6.3/libdoc/set/rdoc/Set.html#method-i-include-3F
+#  note that set is not included by default so you'll have to require it
+def bonus_contains_sum_pair? values, target
+  set = Set.new
+
+  values.each_with_index do |v, i|
+    temp = target-values[i]
+    if (temp >= 0) && (Set.include? temp)
+      return true
+    end
+    set << values[i]
+  end
+
+  false
+end
+
 # you need to think more about variety of test cases rather than quantity.
 # Looking at random instances of success is all well and good, but it's more
 # important to identify different branches and edge cases
